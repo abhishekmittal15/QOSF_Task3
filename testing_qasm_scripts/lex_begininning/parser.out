@@ -1,0 +1,294 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ARROW
+    MEASURE
+    NUMBER
+    PI
+
+Grammar
+
+Rule 0     S' -> start
+Rule 1     start -> qasm
+Rule 2     qasm -> format
+Rule 3     format -> FORMAT_SPEC
+Rule 4     qasm -> qasm STDGATES
+Rule 5     qasm -> qasm circuit
+Rule 6     circuit -> new_reg circuit
+Rule 7     new_reg -> QUBIT [ NATURAL_NUMBER ] ID ;
+Rule 8     new_reg -> BIT [ NATURAL_NUMBER ] ;
+Rule 9     circuit -> empty
+Rule 10    qasm -> empty
+Rule 11    empty -> <empty>
+
+Terminals, with rules where they appear
+
+;                    : 7 8
+ARROW                : 
+BIT                  : 8
+FORMAT_SPEC          : 3
+ID                   : 7
+MEASURE              : 
+NATURAL_NUMBER       : 7 8
+NUMBER               : 
+PI                   : 
+QUBIT                : 7
+STDGATES             : 4
+[                    : 7 8
+]                    : 7 8
+error                : 
+
+Nonterminals, with rules where they appear
+
+circuit              : 5 6
+empty                : 9 10
+format               : 2
+new_reg              : 6
+qasm                 : 1 4 5
+start                : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . start
+    (1) start -> . qasm
+    (2) qasm -> . format
+    (4) qasm -> . qasm STDGATES
+    (5) qasm -> . qasm circuit
+    (10) qasm -> . empty
+    (3) format -> . FORMAT_SPEC
+    (11) empty -> .
+
+    FORMAT_SPEC     shift and go to state 5
+    STDGATES        reduce using rule 11 (empty -> .)
+    QUBIT           reduce using rule 11 (empty -> .)
+    BIT             reduce using rule 11 (empty -> .)
+    $end            reduce using rule 11 (empty -> .)
+
+    start                          shift and go to state 1
+    qasm                           shift and go to state 2
+    format                         shift and go to state 3
+    empty                          shift and go to state 4
+
+state 1
+
+    (0) S' -> start .
+
+
+
+state 2
+
+    (1) start -> qasm .
+    (4) qasm -> qasm . STDGATES
+    (5) qasm -> qasm . circuit
+    (6) circuit -> . new_reg circuit
+    (9) circuit -> . empty
+    (7) new_reg -> . QUBIT [ NATURAL_NUMBER ] ID ;
+    (8) new_reg -> . BIT [ NATURAL_NUMBER ] ;
+    (11) empty -> .
+
+  ! shift/reduce conflict for STDGATES resolved as shift
+  ! shift/reduce conflict for QUBIT resolved as shift
+  ! shift/reduce conflict for BIT resolved as shift
+  ! reduce/reduce conflict for $end resolved using rule 1 (start -> qasm .)
+    $end            reduce using rule 1 (start -> qasm .)
+    STDGATES        shift and go to state 6
+    QUBIT           shift and go to state 10
+    BIT             shift and go to state 11
+
+  ! STDGATES        [ reduce using rule 11 (empty -> .) ]
+  ! QUBIT           [ reduce using rule 11 (empty -> .) ]
+  ! BIT             [ reduce using rule 11 (empty -> .) ]
+  ! $end            [ reduce using rule 11 (empty -> .) ]
+
+    circuit                        shift and go to state 7
+    new_reg                        shift and go to state 8
+    empty                          shift and go to state 9
+
+state 3
+
+    (2) qasm -> format .
+
+    STDGATES        reduce using rule 2 (qasm -> format .)
+    QUBIT           reduce using rule 2 (qasm -> format .)
+    BIT             reduce using rule 2 (qasm -> format .)
+    $end            reduce using rule 2 (qasm -> format .)
+
+
+state 4
+
+    (10) qasm -> empty .
+
+    STDGATES        reduce using rule 10 (qasm -> empty .)
+    QUBIT           reduce using rule 10 (qasm -> empty .)
+    BIT             reduce using rule 10 (qasm -> empty .)
+    $end            reduce using rule 10 (qasm -> empty .)
+
+
+state 5
+
+    (3) format -> FORMAT_SPEC .
+
+    STDGATES        reduce using rule 3 (format -> FORMAT_SPEC .)
+    QUBIT           reduce using rule 3 (format -> FORMAT_SPEC .)
+    BIT             reduce using rule 3 (format -> FORMAT_SPEC .)
+    $end            reduce using rule 3 (format -> FORMAT_SPEC .)
+
+
+state 6
+
+    (4) qasm -> qasm STDGATES .
+
+    STDGATES        reduce using rule 4 (qasm -> qasm STDGATES .)
+    QUBIT           reduce using rule 4 (qasm -> qasm STDGATES .)
+    BIT             reduce using rule 4 (qasm -> qasm STDGATES .)
+    $end            reduce using rule 4 (qasm -> qasm STDGATES .)
+
+
+state 7
+
+    (5) qasm -> qasm circuit .
+
+    STDGATES        reduce using rule 5 (qasm -> qasm circuit .)
+    QUBIT           reduce using rule 5 (qasm -> qasm circuit .)
+    BIT             reduce using rule 5 (qasm -> qasm circuit .)
+    $end            reduce using rule 5 (qasm -> qasm circuit .)
+
+
+state 8
+
+    (6) circuit -> new_reg . circuit
+    (6) circuit -> . new_reg circuit
+    (9) circuit -> . empty
+    (7) new_reg -> . QUBIT [ NATURAL_NUMBER ] ID ;
+    (8) new_reg -> . BIT [ NATURAL_NUMBER ] ;
+    (11) empty -> .
+
+  ! shift/reduce conflict for QUBIT resolved as shift
+  ! shift/reduce conflict for BIT resolved as shift
+    QUBIT           shift and go to state 10
+    BIT             shift and go to state 11
+    STDGATES        reduce using rule 11 (empty -> .)
+    $end            reduce using rule 11 (empty -> .)
+
+  ! QUBIT           [ reduce using rule 11 (empty -> .) ]
+  ! BIT             [ reduce using rule 11 (empty -> .) ]
+
+    new_reg                        shift and go to state 8
+    circuit                        shift and go to state 12
+    empty                          shift and go to state 9
+
+state 9
+
+    (9) circuit -> empty .
+
+    STDGATES        reduce using rule 9 (circuit -> empty .)
+    QUBIT           reduce using rule 9 (circuit -> empty .)
+    BIT             reduce using rule 9 (circuit -> empty .)
+    $end            reduce using rule 9 (circuit -> empty .)
+
+
+state 10
+
+    (7) new_reg -> QUBIT . [ NATURAL_NUMBER ] ID ;
+
+    [               shift and go to state 13
+
+
+state 11
+
+    (8) new_reg -> BIT . [ NATURAL_NUMBER ] ;
+
+    [               shift and go to state 14
+
+
+state 12
+
+    (6) circuit -> new_reg circuit .
+
+    STDGATES        reduce using rule 6 (circuit -> new_reg circuit .)
+    QUBIT           reduce using rule 6 (circuit -> new_reg circuit .)
+    BIT             reduce using rule 6 (circuit -> new_reg circuit .)
+    $end            reduce using rule 6 (circuit -> new_reg circuit .)
+
+
+state 13
+
+    (7) new_reg -> QUBIT [ . NATURAL_NUMBER ] ID ;
+
+    NATURAL_NUMBER  shift and go to state 15
+
+
+state 14
+
+    (8) new_reg -> BIT [ . NATURAL_NUMBER ] ;
+
+    NATURAL_NUMBER  shift and go to state 16
+
+
+state 15
+
+    (7) new_reg -> QUBIT [ NATURAL_NUMBER . ] ID ;
+
+    ]               shift and go to state 17
+
+
+state 16
+
+    (8) new_reg -> BIT [ NATURAL_NUMBER . ] ;
+
+    ]               shift and go to state 18
+
+
+state 17
+
+    (7) new_reg -> QUBIT [ NATURAL_NUMBER ] . ID ;
+
+    ID              shift and go to state 19
+
+
+state 18
+
+    (8) new_reg -> BIT [ NATURAL_NUMBER ] . ;
+
+    ;               shift and go to state 20
+
+
+state 19
+
+    (7) new_reg -> QUBIT [ NATURAL_NUMBER ] ID . ;
+
+    ;               shift and go to state 21
+
+
+state 20
+
+    (8) new_reg -> BIT [ NATURAL_NUMBER ] ; .
+
+    QUBIT           reduce using rule 8 (new_reg -> BIT [ NATURAL_NUMBER ] ; .)
+    BIT             reduce using rule 8 (new_reg -> BIT [ NATURAL_NUMBER ] ; .)
+    STDGATES        reduce using rule 8 (new_reg -> BIT [ NATURAL_NUMBER ] ; .)
+    $end            reduce using rule 8 (new_reg -> BIT [ NATURAL_NUMBER ] ; .)
+
+
+state 21
+
+    (7) new_reg -> QUBIT [ NATURAL_NUMBER ] ID ; .
+
+    QUBIT           reduce using rule 7 (new_reg -> QUBIT [ NATURAL_NUMBER ] ID ; .)
+    BIT             reduce using rule 7 (new_reg -> QUBIT [ NATURAL_NUMBER ] ID ; .)
+    STDGATES        reduce using rule 7 (new_reg -> QUBIT [ NATURAL_NUMBER ] ID ; .)
+    $end            reduce using rule 7 (new_reg -> QUBIT [ NATURAL_NUMBER ] ID ; .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for STDGATES in state 2 resolved as shift
+WARNING: shift/reduce conflict for QUBIT in state 2 resolved as shift
+WARNING: shift/reduce conflict for BIT in state 2 resolved as shift
+WARNING: shift/reduce conflict for QUBIT in state 8 resolved as shift
+WARNING: shift/reduce conflict for BIT in state 8 resolved as shift
+WARNING: reduce/reduce conflict in state 2 resolved using rule (start -> qasm)
+WARNING: rejected rule (empty -> <empty>) in state 2
