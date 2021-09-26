@@ -42,12 +42,35 @@
 
 
 import cirq 
+import numpy as np 
 
-a=cirq.NamedQubit("q0")
+class MyGate(cirq.Gate):
+    def __init__(self):
+        super(MyGate, self)
+
+    def _num_qubits_(self):
+        return 2
+
+    def _unitary_(self):
+        return np.array([
+            [1.0,  0.0,  0.0,  0.0],
+            [0.0,  1.0,  0.0,  0.0],
+            [0.0,  0.0,  0.0,  1.0],
+            [0.0,  0.0,  1.0,  0.0]
+        ]) 
+
+    def _circuit_diagram_info_(self, args):
+        return "G","G"
+
+my_gate = MyGate()
+
+a=cirq.LineQubit.range(2)
+
+print(a[0])
 
 circuit=cirq.Circuit()
-circuit.append(cirq.X(a))
-circuit.append(cirq.measure(a))
+circuit.append(my_gate.on(*a))
+circuit.append(cirq.measure(*a))
 
 print(circuit)
 
